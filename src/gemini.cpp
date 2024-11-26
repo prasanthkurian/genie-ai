@@ -1,5 +1,4 @@
 #include <iostream>
-#include <curl/curl.h>
 #include <json-c/json.h>
 #include <cstring>
 #include<unistd.h>
