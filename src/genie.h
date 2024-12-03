@@ -8,7 +8,9 @@
 
 #define API_URL "https://generativelanguage.googleapis.com/v1beta/models"
 #define GEMINI_MODEL "gemini-1.5-flash-001"
-#define API_KEY "AIzaSyBsW7g1f2FcK04UHtjxudosUTka6rTxvhM"
+#define API_KEY std::getenv("GOOGLE_API_KEY")
+ 
+
 
 #define EXIT_SUCCESS 0
 #define EXIT_FAILURE 1

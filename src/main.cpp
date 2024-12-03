@@ -12,8 +12,19 @@
 int main(int argc, char* argv[]) {
 	json J;
 	URL U;
+	
+	std::string text;
+	const char *c_text;
 	const char *json_object;
-	J.create_payload(argv[1]);
+	if( argc > 1) {
+		J.create_payload(argv[1]);
+	} else {
+		std::getline(std::cin, text);
+		c_text = text.c_str();
+		J.create_payload(c_text);
+	}
+	
+
 	U.construct_full_url(API_URL, GEMINI_MODEL, API_KEY);
 
 	Communicator C(&U, &J);
