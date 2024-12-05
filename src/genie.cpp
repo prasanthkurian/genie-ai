@@ -159,7 +159,6 @@ Communicator::Communicator(URL *U, json *J) {
 	this->response ={0};
 	headers = curl_slist_append(headers, "Content-Type: application/json");
 	curl_global_init(CURL_GLOBAL_DEFAULT);
-	
     	curl_easy_setopt(this->curl_object, CURLOPT_SSL_VERIFYPEER, 0L);
     	curl_easy_setopt(this->curl_object, CURLOPT_SSL_VERIFYHOST, 0L);
 	curl_easy_setopt(this->curl_object, CURLOPT_HTTPHEADER, headers);

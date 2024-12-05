@@ -4,6 +4,7 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 set(SOURCES
 	src/main.cpp
 	src/genie.cpp
+	src/storage.cpp
    )
 
 add_executable(genie ${SOURCES})

@@ -5,10 +5,13 @@
 #include <cstring>
 #include <curl/curl.h>
 #include<unistd.h>
+#include <vector>
+#include <fstream>
 
 #define API_URL "https://generativelanguage.googleapis.com/v1beta/models"
 #define GEMINI_MODEL "gemini-1.5-flash-001"
 #define API_KEY std::getenv("GOOGLE_API_KEY")
+#define CONV_HIST_FILE std::getenv("CONV_HIST_FILE")
  
 
 
@@ -52,6 +55,22 @@ class Communicator {
 		char* get_response();
 		~Communicator();
 
+};
+class book_keeper {
+	private:
+		std::string filename = CONV_HIST_FILE;
+	        bool conversation_history_exists = true;	
+	        bool conversation_history_regular = true;	
+	        bool conversation_history_readable = true;
+	        bool conversation_history_writable = true;
+		std::vector<std::string> buffer;
+	public:
+		book_keeper();
+		bool check_conversation_history();
+		bool add_conversation_to_buffer(std::string yours, std::string genies);
+		std::string get_string_from_vector();
+		~book_keeper();
+			
 };
 
 extern void add_json_key_value(json_object*, const char*, const char*);
