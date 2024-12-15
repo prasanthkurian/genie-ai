@@ -27,7 +27,6 @@ int main(int argc, char* argv[]) {
 	URL U;
 	book_keeper B;
 	display D;
-
 	
 	std::string full_text ="";
 	std::string message = "";
