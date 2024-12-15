@@ -9,7 +9,8 @@
 #include <fstream>
 
 #define API_URL "https://generativelanguage.googleapis.com/v1beta/models"
-#define GEMINI_MODEL "gemini-1.5-flash-001"
+//#define GEMINI_MODEL "gemini-1.5-flash-001"
+#define GEMINI_MODEL std::getenv("GEMINI_MODEL")
 #define API_KEY std::getenv("GOOGLE_API_KEY")
 #define CONV_HIST_FILE std::getenv("CONV_HIST_FILE")
  
@@ -71,6 +72,19 @@ class book_keeper {
 		std::string get_string_from_vector();
 		~book_keeper();
 			
+};
+
+class display {
+	private:
+		void get_char_positions(std::string, std::string, std::vector<int>*);
+	public:
+		display();
+		std::string handle_stream(std::string);
+		std::string handle_bold(std::string, std::vector<int>);
+		//std::string handle_italics();
+		void print_dashs();
+		~display();
+
 };
 
 extern void add_json_key_value(json_object*, const char*, const char*);

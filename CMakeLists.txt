@@ -5,10 +5,12 @@ set(SOURCES
 	src/main.cpp
 	src/genie.cpp
 	src/storage.cpp
+	src/display.cpp
    )
 
 add_executable(genie ${SOURCES})
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set (CMAKE_CXX_FLAGS "-g3")
 target_include_directories(genie PUBLIC "${PROJECT_BINARY_DIR}" "${PROJECT_SOURCE_DIR}/src")
 target_link_libraries(genie PUBLIC m curl json-c)

@@ -132,18 +132,41 @@ const char* json::get_text(const char* response) {
 	struct json_object *parts_content;
 	struct json_object *text;
 	struct json_object *text_content;
+	
+	struct json_object *error;
+	struct json_object *code;
+	struct json_object *status;
+	struct json_object *message;
+	
+	const char *code_t;
+	const char *message_t;
+	const char *status_t;
 
-	json_object_object_get_ex(json_obj, "candidates", &candidates);
-	content = json_object_array_get_idx(candidates, 0);
-	
-	json_object_object_get_ex(content, "content", &parts);
-	
-	json_object_object_get_ex(parts, "parts", &parts_content);
-	text = json_object_array_get_idx(parts_content, 0);
-	json_object_object_get_ex(text, "text", &text_content);
-	
-	const char* candidate_string = json_object_get_string(text_content);
+	const char* candidate_string;
 
+	if(json_object_object_get_ex(json_obj, "candidates", &candidates) == true ) { 
+		content = json_object_array_get_idx(candidates, 0);
+		json_object_object_get_ex(content, "content", &parts);
+		json_object_object_get_ex(parts, "parts", &parts_content);
+		text = json_object_array_get_idx(parts_content, 0);
+		json_object_object_get_ex(text, "text", &text_content);
+		candidate_string = json_object_get_string(text_content);
+	}else if(json_object_object_get_ex(json_obj, "error", &error) == true ) { 
+		json_object_object_get_ex(error, "code", &code);
+		json_object_object_get_ex(error, "message", &message);
+		json_object_object_get_ex(error, "status", &status);
+
+		code_t = json_object_get_string(code);
+		message_t = json_object_get_string(message);
+		status_t = json_object_get_string(status);
+
+		candidate_string = (const char *) malloc(std::strlen(code_t)+std::strlen(message_t)+std::strlen(status_t)+10);
+		std::sprintf((char *)candidate_string,"%s : %s : %s", code_t, status_t, message_t);
+		//candidate_string = (std::string(json_object_get_string(code)) + std::string(json_object_get_string(status)) + std::string(json_object_get_string(message))).c_str();
+	} else {
+		candidate_string = json_object_get_string(json_obj);
+	}
+	
 	return candidate_string;
 }
 

@@ -26,6 +26,7 @@ int main(int argc, char* argv[]) {
 	json J;
 	URL U;
 	book_keeper B;
+	display D;
 
 	
 	std::string full_text ="";
@@ -60,8 +61,9 @@ int main(int argc, char* argv[]) {
 	C.send_command();
 	json_object = C.get_response();
 	genies_reply = J.get_text(json_object);
-	std::cout<<"-------------------------------------------------------------------------"<<std::endl;
+	genies_reply = D.handle_stream(genies_reply);
+	D.print_dashs();
 	std::cout<<genies_reply<<std::endl;
-	std::cout<<"-------------------------------------------------------------------------"<<std::endl;
+	D.print_dashs();
 	B.add_conversation_to_buffer(my_question,genies_reply);
 }
